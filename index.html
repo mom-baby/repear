@@ -64,7 +64,7 @@
     // --- ระบบรหัสผ่าน ---
     passwordInput: '', isAuthenticated: false, passError: false,
     checkPassword() {
-        if (['2room', '2Room', 'at', '2ROOM'].includes(this.passwordInput)) {
+        if (['2room', '2Room', 'at', '2'].includes(this.passwordInput)) {
             this.isAuthenticated = true;
             this.passError = false;
         } else {
