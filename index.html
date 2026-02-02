@@ -90,6 +90,7 @@
     profitPercent: 30,
     limitHours: 2,
     limit1: 3,
+    limit2: 8,
     docDate: '', 
     refDate: '', 
     signer: 'นางสาวณพัชชนันท์ ใจสา',
@@ -237,7 +238,7 @@
                 </p>
                 <div class="red-alert mt-2">
                     <p class="text-[14px] text-red-700 font-bold leading-relaxed text-justify">
-                        3. ห้ามดำเนินการใด ๆ ด้วยตนเองโดยไม่ได้รับอนุญาต โดยเฉพาะกรณีเข้ารับการยืนยันตัวตนบัญชีร้านค้ารอบสุดท้าย ต้องบันทึกช่วยจำตามที่เจ้าหน้าที่แจ้งเท่านั้น
+                        <span x-text="smartFormat(limit2)"></span>. ห้ามดำเนินการใด ๆ ด้วยตนเองโดยไม่ได้รับอนุญาต โดยเฉพาะกรณีเข้ารับการยืนยันตัวตนบัญชีร้านค้ารอบสุดท้าย ต้องบันทึกช่วยจำตามที่เจ้าหน้าที่แจ้งเท่านั้น
                         (หากไม่ปฏิบัติตามระบบที่กำหนด จะต้องดำเนินการแก้ไขตามแผนที่ระบบแจ้ง และหากเกิดความผิดพลาด ต้องแก้ไขยอดวงเงินเบิกถอนในอัตรา <span x-text="smartFormat(limit1)"></span> - <span x-text="smartFormat(multiplier)"></span> เท่าตามที่ระบบกำหนด)
                     </p>
                 </div>
@@ -350,21 +351,22 @@
         </div>
     </div>
 
-<div class="sidebar p-10">
-    <div class="mb-4 border-b border-gray-700 pb-3">
+<div class="sidebar flex flex-col h-full p-6 bg-[#0f141f]">
+    <div class="mb-4 border-b border-gray-700 pb-3 flex-none">
         <h2 class="text-xl font-black text-orange-500 font-kanit">ซ่อมบันทึกนะจ๊ะ</h2>
-        <p class="text-[9px] text-gray-500 font-bold tracking-widest mt-1">好运</p>
+        <p class="text-[9px] text-gray-500 font-bold tracking-widest mt-1 uppercase">Control Center | 好运</p>
     </div>
 
-    <hr class="border-gray-700 mb-6"> <div class="flex-1 overflow-y-auto space-y-3 pr-1">
+    <div class="flex-1 overflow-y-auto space-y-4 pr-1 custom-scrollbar">
+        
         <div class="input-group">
-            <label class="label-tag">🏪 ชื่อร้านค้าสมาชิก </label>
-            <input type="text" x-model="shopName" class="input-box">
+            <label class="label-tag">🏪 ชื่อร้านค้าสมาชิก</label>
+            <input type="text" x-model="shopName" class="input-box" placeholder="ระบุชื่อหรือรหัสร้านค้า">
         </div>
 
         <div class="grid grid-cols-2 gap-3">
             <div class="input-group">
-                <label class="label-tag">💰 ยอดฝากบิลแรก </label>
+                <label class="label-tag">💰 ยอดฝากบิลแรก</label>
                 <input type="number" x-model.number="editableAmount" class="input-box">
             </div>
 
@@ -372,56 +374,64 @@
                 <label class="label-tag">💰 ยอดฝากบิลสอง</label>
                 <div class="relative flex items-center">
                     <span class="absolute left-3 text-gray-400 font-bold">+</span>
-                    <input type="number" 
-                        x-model.number="amountX2_manual" 
-                        class="input-box pl-8" 
-                        placeholder="0">
+                    <input type="number" x-model.number="amountX2_manual" class="input-box pl-7" placeholder="0">
                 </div>
             </div>
 
             <div class="input-group">
-                <label class="label-tag">📝 บันทึกช่วยจำ </label>
-                <input type="text" x-model="memoText" class="input-box" placeholder="เช่น ซ่อมร้าน.">
+                <label class="label-tag">💰 กำไรสมนาคุณ (%)</label>
+                <input type="number" x-model.number="profitPercent" class="input-box">
             </div>
 
             <div class="input-group">
-                <label class="label-tag">📝 1 แผนทำกี่ครั้ง </label>
-                <input type="text" x-model="memoText1" class="input-box" placeholder="เช่น หนึ่งครั้ง">
-            </div>
-
-            <div class="input-group">
-                <label class="label-tag">🛡️ เงินประกันกี่ล้าน </label>
+                <label class="label-tag">🛡️ เงินประกัน (ล้าน)</label>
                 <input type="number" x-model.number="guaranteeAmount" class="input-box">
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-3 p-3 bg-gray-800/30 rounded-xl border border-gray-800">
             <div class="input-group">
-                <label class="label-tag">💰 กำไรสมนาคุณ (%) </label>
-                <input type="number" x-model.number="profitPercent" class="input-box">
+                <label class="label-tag">📝 บันทึกช่วยจำ</label>
+                <input type="text" x-model="memoText" class="input-box" placeholder="เช่น ซ่อมร้าน.">
             </div>
+
             <div class="input-group">
-                <label class="label-tag">⏰ ให้เวลาแก้ไขกี่ (ชั่วโมง)</label>
+                <label class="label-tag">📝 1 แผนทำกี่ครั้ง</label>
+                <input type="text" x-model="memoText1" class="input-box" placeholder="เช่น หนึ่งครั้ง">
+            </div>
+
+            <div class="input-group">
+                <label class="label-tag">⏰ เวลาแก้ไข (ชม.)</label>
                 <input type="number" x-model="limitHours" class="input-box">
+            </div>
+
+            <div class="input-group">
+                <label class="label-tag">⚠️ ข้อควรระวังข้อที่</label>
+                <input type="number" x-model.number="limit2" class="input-box">
             </div>
         </div>
 
-        <div class="flex items-center justify-between gap-4 py-1 border-t border-gray-800 mt-2">
-            <label class="text-[13px] text-orange-400 whitespace-nowrap font-bold">✖️ ตัวคูณบิลแรก</label>
-            <input type="number" 
-                   x-model.number="multiplierRepair" 
-                   class="w-20 p-1 text-center bg-gray-800 border border-orange-900/50 rounded text-white focus:border-orange-500" 
-                   placeholder="1">
+        <div class="space-y-3 pt-2">
+            <div class="flex items-center justify-between gap-4 py-2 border-t border-gray-800">
+                <label class="text-[13px] text-orange-400 whitespace-nowrap font-bold">✖️ ตัวคูณบิลแรก</label>
+                <input type="number" x-model.number="multiplierRepair" 
+                       class="w-20 p-1.5 text-center bg-gray-800 border border-orange-900/50 rounded-lg text-white focus:border-orange-500 outline-none" 
+                       placeholder="1">
+            </div>
+
+            <div class="flex items-center justify-between gap-2 py-2 border-t border-gray-800/50">
+                <label class="text-[13px] text-gray-400 whitespace-nowrap">✖️ ช่วงการปรับ</label>
+                <div class="flex items-center gap-2">
+                    <input type="number" x-model.number="limit1" 
+                           class="w-14 p-1.5 text-center bg-gray-800 border border-gray-700 rounded-lg text-white outline-none">
+                    <span class="text-gray-600 text-[11px]">ถึง</span>
+                    <input type="number" x-model.number="multiplier" 
+                           class="w-14 p-1.5 text-center bg-gray-800 border border-gray-700 rounded-lg text-white outline-none">
+                </div>
+            </div>
         </div>
-                
-        <div class="flex items-center justify-between gap-2 py-1">
-            <label class="text-[13px] text-gray-400 whitespace-nowrap">✖️ ช่วงการปรับ (เริ่ม)</label>
-            <input type="number" x-model.number="limit1" 
-                   class="w-14 p-1 text-center bg-gray-800 border border-gray-700 rounded text-white">
-            <span class="text-gray-500 text-[12px]">ถึง</span>
-            <input type="number" x-model.number="multiplier" 
-                   class="w-14 p-1 text-center bg-gray-800 border border-gray-700 rounded text-white">
-        </div>
+    </div>
+</div>
 
 <div class="sidebar w-80 h-screen bg-[#0f141f] border-r border-gray-800 flex flex-col p-6 fixed left-0 top-0 overflow-hidden shadow-2xl">
 
